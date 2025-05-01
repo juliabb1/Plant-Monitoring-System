@@ -1,6 +1,11 @@
 # Plant-Monitoring-System
 I have created a Snart Plant Monitoring System with integrated watering capabilities!
 
+In the following you will find Details about the
+- System Scope
+- Components
+- Result
+
 ## System Scope
 These are the technical and non-technical requirements:
 - Watering based on moisture level​
@@ -44,3 +49,10 @@ These are the technical and non-technical requirements:
     - Activate Pump if Blynk Button was pressed
   - Logging
     - Log Data to Serial Monitor
+
+## Result
+Congrats! You have created a Smart Plant Monitoring System.
+The System will read the sensor data every 2 seconds and evaluate if a plant watering should be done based on the soil moisture Value.
+If the soil is too wet the water pump gets activated automatically until the threshold to dryness is reached. 
+You don't have to do anything, except for letting your plant thrive in sufficient sun.
+Interested User can monitor the Sensor Data over the Blynk System and manually activate the water pump if needed.
