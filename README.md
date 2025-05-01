@@ -7,12 +7,13 @@ This system monitors environmental conditions and waters your plant when needed 
 
 ## 📋 Table of Contents
 
-1. [Overview](#-overview)  
-2. [System Features](#-system-features)  
-3. [Components](#-components)  
-4. [System Structure](#-system-structure)  
-5. [How It Works](#-how-it-works)  
-6. [Result](#-result)
+- [🔍 Overview](#-overview)  
+- [🧠 System Features](#-system-features)  
+- [🧩 Components](#-components)  
+- [🏗️ System Structure](#-system-structure)  
+  - [🧬 How Data Moves Through the System](#-how-data-moves-through-the-system)  
+- [🚀 How It Works](#-how-it-works)  
+- [🎉 Result](#-result)
 
 ---
 
