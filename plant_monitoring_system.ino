@@ -57,8 +57,8 @@ void setup() {
 
   dht.begin();
 
-  sensorTimer.setInterval(SOIL_INTERVAL, readSoilSensor);
-  sensorTimer.setInterval(DHT_INTERVAL, readDHTSensor);
+  sensorTimer.setInterval(SOIL_INTERVAL, sendSoilData);
+  sensorTimer.setInterval(DHT_INTERVAL, sendDHTData);
   sensorTimer.setInterval(SOIL_INTERVAL, activatePumpIfNeeded);
   logTimer.setInterval(LOG_INTERVAL, sendLogToBlynk);
 }
@@ -69,20 +69,21 @@ void loop() {
   logTimer.run();
 
   if (millis() - lastSerialLogTime >= SERIAL_LOG_INTERVAL) {
+    temperature = dht.readTemperature();
+    humidity = dht.readHumidity();
+    soilValue = analogRead(SOIL_SENSOR_PIN);
     logToSerial();
+    activatePumpIfNeeded();
     lastSerialLogTime = millis();
   }
 }
 
-// ================= Sensor Functions =================
-void readSoilSensor() {
-  soilValue = analogRead(SOIL_SENSOR_PIN);
+// ================= Send Functions for Blynk =================
+void sendSoilData() {
   Blynk.virtualWrite(VPIN_SOIL, soilValue);
 }
 
-void readDHTSensor() {
-  temperature = dht.readTemperature();
-  humidity = dht.readHumidity();
+void sendDHTData() {
   Blynk.virtualWrite(VPIN_TEMP, temperature);
   Blynk.virtualWrite(VPIN_HUMIDITY, humidity);
 }
@@ -95,12 +96,12 @@ void sendLogToBlynk() {
   Blynk.virtualWrite(VPIN_LOG, msg + "\n");
 }
 
+// ================= Serial Log Function  =================
 void logToSerial() {
   Serial.println("===== 🌱 Sensor Readings (Serial Log) =====");
   Serial.println("Soil Moisture: " + String(soilValue));
   Serial.println("Temperature:   " + String(temperature) + " °C");
   Serial.println("Humidity:      " + String(humidity) + " %");
-  Serial.println("Pump Status:   " + String(relayState == LOW ? "ON (watering)" : "OFF"));
   Serial.println("===========================================");
 }
 
@@ -108,14 +109,12 @@ void logToSerial() {
 void activatePumpIfNeeded() {
   if (soilValue > SOIL_DRY_THRESHOLD) {
     Serial.println("🌵 Starting watering...");
-    Blynk.virtualWrite(VPIN_LOG, "🌵 Starting watering...");
 
     digitalWrite(RELAY_PIN, LOW);  // Relay ON (active LOW)
     delay(PUMP_DURATION_MS);
     digitalWrite(RELAY_PIN, HIGH); // Relay OFF
 
     Serial.println("✅ Watering finished.");
-    Blynk.virtualWrite(VPIN_LOG, "✅ Watering finished.");
   }
 }
 
