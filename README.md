@@ -1,7 +1,9 @@
 # 🌿 Smart Plant Monitoring & Watering System
 
-Welcome to your own **Smart Plant Monitoring System** – an automated, IoT-enabled plant care assistant!  
-This system monitors environmental conditions and waters your plant when needed — or on demand — so you can sit back and let your greenery thrive. 🌞💧
+I have created a **Smart Plant Monitoring System** – an automated, IoT-enabled plant care assistant!  
+This system monitors environmental conditions and waters your plant when needed — or on demand — so you can sit back and let your greenery thrive.
+
+![Slide18](https://github.com/user-attachments/assets/248c18fa-0188-4486-ae86-0db33ec3223e)
 
 ---
 
@@ -13,7 +15,8 @@ This system monitors environmental conditions and waters your plant when needed 
 - [🏗️ System Structure](#-system-structure)  
   - [🧬 How Data Moves Through the System](#-how-data-moves-through-the-system)  
 - [🚀 How It Works](#-how-it-works)  
-- [🎉 Result](#-result)
+- [🎉 Result](#-result)  
+- [🌐 Website Interface](#-website-interface)
 
 ---
 
@@ -26,19 +29,19 @@ Perfect for hobbyists, plant lovers, or anyone curious about smart home automati
 
 ## 🧠 System Features
 
-### ✅ Automated & Manual Watering
+### Automated & Manual Watering
 - Smart watering based on **soil moisture levels**
-- Manual control via **Blynk app**
+- Manual control via **Blynk app** or **local website**
 
-### ✅ Environmental Monitoring
+### Environmental Monitoring
 - Tracks:
   - 🌡️ **Temperature**
   - 💧 **Humidity**
   - 🌱 **Soil moisture**
 
-### ✅ Smart Dashboard
-- Visual real-time data on the **Blynk app**
-- Works on both **mobile and web**
+### Smart Dashboard
+- Visual real-time data on the **Blynk app** and **local website**
+- Works on both **mobile and web**, with a responsive interface for easy use on phones
 
 ---
 
@@ -84,39 +87,63 @@ Perfect for hobbyists, plant lovers, or anyone curious about smart home automati
                [Relay Module] ─── [Water Pump]
 ```
 
-### 🧬 How Data Moves Through the System
+---
+
+## 🧬 How Data Moves Through the System
 
 - **Sensor Input**  
-  - Soil moisture and temperature/humidity data are read by the Arduino every 2 seconds.
+  - Soil moisture and temperature/humidity data are read by the Arduino every 5 seconds.
   
 - **Data Processing & Decision Logic**  
   - The Arduino evaluates whether watering is needed based on moisture thresholds.
-  - It listens for user input from the Blynk app to allow manual watering.
+  - It listens for user input from the Blynk app or the local website to allow manual watering.
 
 - **Actuation**  
   - If conditions are met (either automatically or manually), the relay module activates the water pump.
   
 - **Communication & Visualization**  
   - Sensor readings are sent to Blynk via WiFi for remote monitoring.
-  - Users can view live data and toggle the water pump remotely.
+  - Users can view live data and toggle the water pump remotely via the Blynk app or local website.
+  
+- **Website Interface**  
+  - The website hosted by the **Arduino Uno R4 WiFi** operates independently of the Blynk app, providing an alternative way to monitor and control the system.
+  - It offers real-time sensor data, as well as the ability to manually activate the watering system.
+  - The site is **responsive**, ensuring a good user experience on both mobile and desktop devices.
 
 ---
 
 ## 🚀 How It Works
 
-1. **Sensor readings** are refreshed every 2 seconds.
-2. If the **soil is too dry**, the Arduino activates the **water pump** through the relay.
-3. Users can also activate the pump manually using a **button in the Blynk app**.
-4. All environmental data is continuously sent to **Blynk**, allowing real-time remote monitoring.
-5. The pump **automatically stops** once the soil reaches a sufficient moisture level.
+1. **Sensor Readings**:  
+   - The soil moisture and temperature/humidity sensors are read by the Arduino every 2 seconds to gather up-to-date environmental data.
+
+2. **Automatic Watering**:  
+   - If the soil moisture is below the preset threshold, the Arduino activates the **water pump** through the relay module to water the plant.
+
+3. **Manual Watering Control**:  
+   - Users can activate the water pump manually via the **Blynk app** or the **local website** by pressing the water button.
+
+4. **Continuous Monitoring**:  
+   - Sensor data is continuously sent to **Blynk** for remote monitoring, and the **website** refreshes every 5 seconds to display the latest data on temperature, humidity, soil moisture, and status.
+
+5. **Watering Status**:  
+   - The system stops watering when the soil moisture is above the threshold, ensuring the plant doesn’t overwater.
+
+6. **Local Website Features**:  
+   - The local website, hosted by the **Arduino Uno R4 WiFi**, provides a **real-time** view of the environmental data.
+   - It is **responsive**, adjusting to different screen sizes, so users can access the monitoring system from any device, including smartphones and desktops.
+   - The website offers full control over watering and provides up-to-date data without needing a mobile app.
 
 ---
 
 ## 🎉 Result
 
-Fully functional **smart watering system** that:
+The **Smart Plant Monitoring & Watering System** provides a fully functional automated plant care solution with:
 
-- 🌱 Waters plants automatically
-- 📲 Supports remote manual watering
-- 📊 Offers live sensor monitoring via a web & mobile dashboard
+- 🌱 **Automatic Plant Watering**: The system waters your plant when needed, based on soil moisture levels.
+- 📲 **Manual Control**: Watering can be triggered manually through the **Blynk app** or **local website**.
+- 📊 **Real-Time Monitoring**: View live data on temperature, humidity, and soil moisture from the **Blynk app** or **local website**.
+- 🖥️ **Responsive Website**: The website is mobile-friendly, offering a seamless experience on smartphones, tablets, and desktops.
+- 🌍 **Local Web Interface**: The Arduino Uno R4 WiFi hosts a **self-contained website**, allowing you to monitor and control the system without needing the Blynk app.
 
+This system ensures your plant gets the right amount of water at the right time, all while providing real-time data and control at your fingertips.
