@@ -60,12 +60,10 @@ Perfect for hobbyists, plant lovers, or anyone curious about smart home automati
 
 #### Project Files
 - `secrets.h`  
-  Contains:
   - Blynk credentials
   - WiFi SSID and password
 
 - `plant_monitoring_system.ino`  
-  Handles:
   - Network setup  
   - Sensor data collection  
   - Smart watering logic  
