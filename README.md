@@ -1,7 +1,6 @@
 # 🌿 Smart Plant Monitoring & Watering System
 
-I have created a **Smart Plant Monitoring System** – an automated, IoT-enabled plant care assistant!  
-This system monitors environmental conditions and waters your plant when needed — or on demand — so you can sit back and let your greenery thrive.
+I have created a Smart Plant Monitoring System that monitors environmental conditions and waters your plant when needed or on demand so you can sit back and let your greenery thrive.
 
 ![Slide18](https://github.com/user-attachments/assets/248c18fa-0188-4486-ae86-0db33ec3223e)
 
