@@ -10,7 +10,6 @@
 #include <DHT.h>
 #include <WiFi.h>
 #include <WiFiS3.h>
-#include <PubSubClient.h>
 
 // ================= Configuration =================
 #define DHT_PIN            2
@@ -28,9 +27,8 @@
 #define VPIN_LOG           V99
 
 // ================= WiFi & MQTT =================
-WiFiServer server(8081);
-WiFiClient mqttWiFiClient;
-PubSubClient mqttClient(mqttWiFiClient);
+WiFiServer server(8080);
+WiFiClient wifiClient;
 
 const char ssid[] = SECRET_SSID;
 const char pass[] = SECRET_PASS;
@@ -43,22 +41,15 @@ const char* mqtt_username = MQTT_USERNAME;
 const char* mqtt_pass = MQTT_PASS;
 
 // MQTT Topics
-//  for publishing
 const char* topic_temp = "plant/temperature";
-const char* topic_humidity = "plant/humidity";
+const char* topic_humidity = = "plant/humidity";
 const char* topic_soil = "plant/soil";
 const char* topic_status = "plant/status";
 const char* topic_pump = "plant/pump";
-// for subscription
-const char* topic_pump_sub = "plant/pump/set";
 
 // ================= State Variables =================
 unsigned long lastSerialLogTime = 0;
-unsigned long lastMqttPublishTime = 0;
-
-const unsigned long SERIAL_LOG_INTERVAL = 5000L; // 5Sek
-const unsigned long MQTT_PUBLISH_INTERVAL = 5000L; // 10 seconds
-
+const unsigned long SERIAL_LOG_INTERVAL = 5000L; // 5Sek 
 int soilValue = 0;
 float temperature = 0.0;
 float humidity = 0.0;
@@ -84,14 +75,8 @@ void setup() {
 }
 
 void loop() {
-   // call poll() regularly to allow the library to send MQTT keep alive -> avoids being disconnected by the broker
-  if (!mqttClient.connected()){
-    reconnectMQTT();
-  }
-  mqttClient.loop();
   refreshWebServer();
 
-  // Read Sensor Data and Log to Serial Monitor
   if (millis() - lastSerialLogTime >= SERIAL_LOG_INTERVAL) {
     temperature = dht.readTemperature();
     humidity = dht.readHumidity();
@@ -99,12 +84,6 @@ void loop() {
     logToSerial();
     activatePumpIfNeeded();
     lastSerialLogTime = millis();
-  }
-
-    // Publish sensor data to MQTT
-  if (millis() - lastMqttPublishTime >= MQTT_PUBLISH_INTERVAL) {
-    publishSensorData();
-    lastMqttPublishTime = millis();
   }
 }
 
@@ -146,90 +125,18 @@ void activatePump(){
     Serial.println("🌵 Starting watering...");
     digitalWrite(RELAY_PIN, LOW);  // Relay ON (active LOW)
     pumpActive = true;
-
-    // Publish pump status to MQTT
-    if (mqttClient.connected()) {
-      mqttClient.publish(topic_pump, "ON");
-    }
 }
 
 void closePump() {
     digitalWrite(RELAY_PIN, HIGH); // Relay OFF
     Serial.println("✅ Watering finished.");
     pumpActive = false;
-
-    // Publish pump status to MQTT
-    if (mqttClient.connected()) {
-      mqttClient.publish(topic_pump, "OFF");
-    }
 }
 
 // ================= Network Functions =================
-void publishSensorData() {
-  mqttClient.publish(topic_temp, String(temperature, 1).c_str());
-  mqttClient.publish(topic_humidity, String(humidity, 1).c_str());
-  mqttClient.publish(topic_soil, String(soilValue).c_str());
-  mqttClient.publish(topic_status, evaluateSoilMoisture().c_str());
-}
-
-
-/**
- * callback
- */
-void callbackMQTT(char* topic, byte* payload, unsigned int length)
-{
-  // Callback-Funktion für MQTT-Subscriptions
-  String messagePump;
-
-  Serial.print("Message arrived on topic: ");
-  Serial.println(topic);
- 
-  // Message byteweise verarbeiten und auf Konsole ausgeben
-  for (int i = 0; i < length; i++)
-  {
-    Serial.print((char)payload[i]);
-    messagePump += (char)payload[i];
-  }
-  Serial.println();
-  // Behandlung bestimmter Topics
-  if (String(topic) == topic_pump_sub) {
-    if (messagePump == "ON") {
-      Serial.print(topic_pump_sub);
-      activatePump();
-    }
-    else if (messagePump == "OFF") {
-      Serial.print(topic_pump_sub);
-      closePump();
-    }
-  }
-  /* else if (topic == anderes_topic) { ... } */
-}
-
-
-void setupMQTT() {
-  mqttClient.setServer(mqtt_server, mqtt_port);
-  mqttClient.setCallback(callbackMQTT);
-  Serial.println("🔧 MQTT wifiClient configured on ");
-  Serial.print(mqtt_server);
-}
-
-void reconnectMQTT() {
-  while (!mqttClient.connected()) {
-    Serial.print("📡 Attempting MQTT connection...");
-    
-    if (mqttClient.connect(mqtt_client_id, mqtt_username, mqtt_pass)) {
-      Serial.println(" connected!");
-      // Publish initial status
-      mqttClient.subscribe(topic_pump_sub);
-      mqttClient.publish(topic_status, "🌱 Plant monitor connected");
-    } else {
-      Serial.print(" failed, rc=");
-      Serial.print(mqttClient.state());
-      Serial.println(" retrying in 5 seconds");
-      delay(5000);
-    }
-  }
-}
+void setupMQTT() [
+  pass
+]
 
 void connectToWiFi() {
   Serial.print("🔌 Connecting to WiFi: ");
@@ -273,12 +180,12 @@ void prepareWebServer() {
     Serial.println("Please upgrade the firmware");
   }
   server.begin();     // start the web server on port 80
-  Serial.println("✅ Started Web Server on Port 8080!");
+  Serial.println("✅ Started Web Server on Port 80!");
 }
 
 
 void refreshWebServer() {
-  WiFiClient client = server.available();  // ✅ use a local variable
+  client = server.available();
   if (client) {
     String request = "";
     while (client.connected()) {
