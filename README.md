@@ -8,25 +8,25 @@ I have created a Smart Plant Monitoring System that monitors environmental condi
 
 ## 📋 Table of Contents
 
-- [🔍 Overview](#-overview)  
-- [🧠 System Features](#-system-features)  
-- [🧩 Components](#-components)  
-- [🏗️ System Structure](#-system-structure)  
-  - [🧬 How Data Moves Through the System](#-how-data-moves-through-the-system)  
-- [🚀 How It Works](#-how-it-works)  
-- [🎉 Result](#-result)  
-- [🌐 Website Interface](#-website-interface)
+- [Overview](#-overview)  
+- [System Features](#-system-features)  
+- [Components](#-components)  
+- [System Structure](#-system-structure)  
+  - [How Data Moves Through the System](#-how-data-moves-through-the-system)  
+- [How It Works](#-how-it-works)  
+- [Result](#-result)  
+- [Website Interface](#-website-interface)
 
 ---
 
-## 🔍 Overview
+## Overview
 
 This project combines **sensors, smart logic, and real-time control** to keep your plant healthy with minimal effort.  
 Perfect for hobbyists, plant lovers, or anyone curious about smart home automation.
 
 ---
 
-## 🧠 System Features
+## System Features
 
 ### Automated & Manual Watering
 - Smart watering based on **soil moisture levels**
@@ -34,9 +34,9 @@ Perfect for hobbyists, plant lovers, or anyone curious about smart home automati
 
 ### Environmental Monitoring
 - Tracks:
-  - 🌡️ **Temperature**
-  - 💧 **Humidity**
-  - 🌱 **Soil moisture**
+  -  **Temperature**
+  -  **Humidity**
+  -  **Soil moisture**
 
 ### Smart Dashboard
 - Visual real-time data on the **Blynk app** and **local website**
@@ -44,16 +44,16 @@ Perfect for hobbyists, plant lovers, or anyone curious about smart home automati
 
 ---
 
-## 🧩 Components
+## Components
 
-### 🔧 Hardware
+### Hardware
 - **Arduino Uno R4 WiFi**
 - **DHT11** – Temperature & Humidity Sensor
 - **Capacitive Moisture Sensor V2.0**
 - **1-Channel 5V Relay**
 - **3.3V DC Water Pump**
 
-### 💻 Software
+### Software
 
 #### Libraries Used
 - `Adafruit DHT`
@@ -73,7 +73,7 @@ Perfect for hobbyists, plant lovers, or anyone curious about smart home automati
 
 ---
 
-## 🏗️ System Structure
+## System Structure
 
 ```text
 [Soil Moisture Sensor] ─┐
@@ -88,7 +88,7 @@ Perfect for hobbyists, plant lovers, or anyone curious about smart home automati
 
 ---
 
-## 🧬 How Data Moves Through the System
+## How Data Moves Through the System
 
 - **Sensor Input**  
   - Soil moisture and temperature/humidity data are read by the Arduino every 5 seconds.
@@ -111,7 +111,7 @@ Perfect for hobbyists, plant lovers, or anyone curious about smart home automati
 
 ---
 
-## 🚀 How It Works
+## How It Works
 
 1. **Sensor Readings**:  
    - The soil moisture and temperature/humidity sensors are read by the Arduino every 2 seconds to gather up-to-date environmental data.
@@ -135,13 +135,13 @@ Perfect for hobbyists, plant lovers, or anyone curious about smart home automati
 
 ---
 
-## 🎉 Result
+## Result
 
 The **Smart Plant Monitoring & Watering System** provides a fully functional automated plant care solution with:
 
-- 🌱 **Automatic Plant Watering**: The system waters your plant when needed, based on soil moisture levels.
-- 📲 **Manual Control**: Watering can be triggered manually through the **Blynk app** or **local website**.
-- 📊 **Real-Time Monitoring**: View live data on temperature, humidity, and soil moisture from the **Blynk app** or **local website**.
+- **Automatic Plant Watering**: The system waters your plant when needed, based on soil moisture levels.
+- **Manual Control**: Watering can be triggered manually through the **Blynk app** or **local website**.
+- **Real-Time Monitoring**: View live data on temperature, humidity, and soil moisture from the **Blynk app** or **local website**.
 - 🖥️ **Responsive Website**: The website is mobile-friendly, offering a seamless experience on smartphones, tablets, and desktops.
 - 🌍 **Local Web Interface**: The Arduino Uno R4 WiFi hosts a **self-contained website**, allowing you to monitor and control the system without needing the Blynk app.
 
