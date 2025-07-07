@@ -1,4 +1,4 @@
-# 🌿 Smart Plant Monitoring & Watering System
+# Smart Plant Monitoring & Watering System
 
 I have created a Smart Plant Monitoring System that monitors environmental conditions and waters your plant when needed or on demand so you can sit back and let your greenery thrive.
 
@@ -6,7 +6,7 @@ I have created a Smart Plant Monitoring System that monitors environmental condi
 
 ---
 
-## 📋 Table of Contents
+## Table of Contents
 
 - [Overview](#-overview)  
 - [System Features](#-system-features)  
