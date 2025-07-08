@@ -12,7 +12,6 @@ I have created a Smart Plant Monitoring System that monitors environmental condi
 - [System Features](#-system-features)  
 - [Components](#-components)  
 - [System Structure](#-system-structure)  
-  - [How Data Moves Through the System](#-how-data-moves-through-the-system)  
 - [How It Works](#-how-it-works)  
 - [Result](#-result)  
 - [Website Interface](#-website-interface)
@@ -29,9 +28,11 @@ This project combines **sensors, smart logic, and real-time control** to keep yo
 
 ### Automated & Manual Watering
 - Smart watering based on **soil moisture levels**
-- Manual control via **an external app** or **local website**
+- Manual control via **an external app** or **local website***
 - Device communication over **MQTT**
 
+\* _For this project I have used homeassistant as external app_
+  
 ### Environmental Monitoring
 - Tracks:
   -  **Temperature**
@@ -40,7 +41,7 @@ This project combines **sensors, smart logic, and real-time control** to keep yo
   -  **Pump State**
 
 ### Smart Dashboard
-- Visual real-time data on the **external app**, I used Home Assistant, and **local website**
+- Visual real-time data on the **external app** and **local website**
 - Works on both **mobile and web**, with a responsive interface for easy use on phones
 
 ---
@@ -48,7 +49,7 @@ This project combines **sensors, smart logic, and real-time control** to keep yo
 ## Components
 
 ### Hardware
-- **Arduino Uno R4 WiFi**
+- **ESP32 C3 SuperMini**
 - **DHT11** – Temperature & Humidity Sensor
 - **Capacitive Moisture Sensor V2.0**
 - **1-Channel 3.3V Relay**
@@ -78,7 +79,7 @@ This project combines **sensors, smart logic, and real-time control** to keep yo
 ```text
 [Soil Moisture Sensor] ─┐
                        │
-                 [Arduino Uno R4 WiFi] ─── [WiFi]
+                 [ESP32 C3 SuperMini] ─── [WiFi]
                        │        │
     [DHT11 Sensor] ─────        │
                        │        └──── Manual & Remote Control
@@ -88,36 +89,13 @@ This project combines **sensors, smart logic, and real-time control** to keep yo
 
 ---
 
-## How Data Moves Through the System
-
-- **Sensor Input**  
-  - Soil moisture and temperature/humidity data are read by the Arduino every 5 seconds.
-  
-- **Data Processing & Decision Logic**  
-  - The Arduino evaluates whether watering is needed based on moisture thresholds.
-  - It listens for user input from the external app app or the local website to allow manual watering.
-
-- **Actuation**  
-  - If conditions are met (either automatically or manually), the relay module activates the water pump.
-  
-- **Communication & Visualization**  
-  - Sensor readings are sent to external app via WiFi for remote monitoring.
-  - Users can view live data and toggle the water pump remotely via the external app  or local website.
-  
-- **Website Interface**  
-  - The website hosted by the **Arduino Uno R4 WiFi** operates independently of the external app, providing an alternative way to monitor and control the system.
-  - It offers real-time sensor data, as well as the ability to manually activate the watering system.
-  - The site is **responsive**, ensuring a good user experience on both mobile and desktop devices.
-
----
-
 ## How It Works
 
 1. **Sensor Readings**:  
-   - The soil moisture and temperature/humidity sensors are read by the Arduino every 2 seconds to gather up-to-date environmental data.
+   - The soil moisture and temperature/humidity sensors are read by the ESP32 C3 SuperMini every 2 seconds to gather up-to-date environmental data.
 
 2. **Automatic Watering**:  
-   - If the soil moisture is below the preset threshold, the Arduino activates the **water pump** through the relay module to water the plant.
+   - If the soil moisture is below the preset threshold, the ESP32 C3 SuperMini activates the **water pump** through the relay module to water the plant.
 
 3. **Manual Watering Control**:  
    - Users can activate the water pump manually via the **external app** or the **local website** by pressing the water button.
@@ -128,10 +106,11 @@ This project combines **sensors, smart logic, and real-time control** to keep yo
 5. **Watering Status**:  
    - The system stops watering when the soil moisture is above the threshold, ensuring the plant doesn’t overwater.
 
-6. **Local Website Features**:  
-   - The local website, hosted by the **Arduino Uno R4 WiFi**, provides a **real-time** view of the environmental data.
-   - It is **responsive**, adjusting to different screen sizes, so users can access the monitoring system from any device, including smartphones and desktops.
-   - The website offers full control over watering and provides up-to-date data without needing a mobile app.
+6. **Frontends**
+  - Sensor readings are sent to an external app via MQTT for remote monitoring.
+  - Sensor readings are sent to a server created by the ESP32 C3 SuperMini for remote monitoring.
+  - Users can view live data and toggle the water pump remotely via the external app or the local website.
+  - The responsive website hosted by the **ESP32 C3 SuperMini** operates independently of the external app, providing an alternative way to monitor and control the system.
 
 ---
 
@@ -143,6 +122,6 @@ The **Smart Plant Monitoring & Watering System** provides a fully functional aut
 - **Manual Control**: Watering can be triggered manually through the **external app** or **local website**.
 - **Real-Time Monitoring**: View live data on temperature, humidity, and soil moisture from the **external app** or **local website**.
 - **Responsive Website**: The website is mobile-friendly, offering a seamless experience on smartphones, tablets, and desktops.
-- **Local Web Interface**: The Arduino Uno R4 WiFi hosts a **self-contained website**, allowing you to monitor and control the system without needing the external app.
+- **Local Web Interface**: The ESP32 C3 SuperMini hosts a **self-contained website**, allowing you to monitor and control the system without needing the external app.
 
 This system ensures your plant gets the right amount of water at the right time, all while providing real-time data and control at your fingertips.
