@@ -9,13 +9,12 @@
 #include "webpage.h"
 #include <DHT.h>
 #include <WiFi.h>
-#include <WiFiS3.h>
 #include <PubSubClient.h>
 
 // ================= Configuration =================
 #define DHT_PIN            2
 #define RELAY_PIN          3
-#define SOIL_SENSOR_PIN    A0
+#define SOIL_SENSOR_PIN    0
 #define DHT_TYPE           DHT11
 #define SOIL_DRY_THRESHOLD 350
 
@@ -235,19 +234,19 @@ void connectToWiFi() {
   Serial.print("🔌 Connecting to WiFi: ");
   Serial.println(ssid);
 
-  while (WiFi.begin(ssid, pass) != WL_CONNECTED) {
-    delay(2000);
+  WiFi.begin(ssid, pass);
+
+  // Warte bis verbunden
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(1000);
     Serial.print(".");
   }
 
-  if (WiFi.status() == WL_CONNECTED) {
-    Serial.println("\n✅ Connected to WiFi!");
-    Serial.print("📡 IP Address: ");
-    Serial.println(WiFi.localIP());
-  } else {
-    Serial.println("❌ Could not connect to WiFi.");
-  }
+  Serial.println("\n✅ Connected to WiFi!");
+  Serial.print("📡 IP Address: ");
+  Serial.println(WiFi.localIP());
 }
+
 
 void scanWiFiNetworks() {
   Serial.println("🔍 Scanning for WiFi networks...");
@@ -261,17 +260,6 @@ void scanWiFiNetworks() {
 
 // ================= Create Webserver Functions =================
 void prepareWebServer() {
-
-  if (WiFi.status() == WL_NO_MODULE) {
-    Serial.println("Communication with WiFi module failed!");
-    // don't continue
-    while (true);
-  }
-
-  String fv = WiFi.firmwareVersion();
-  if (fv < WIFI_FIRMWARE_LATEST_VERSION) {
-    Serial.println("Please upgrade the firmware");
-  }
   server.begin();     // start the web server on port 80
   Serial.println("✅ Started Web Server on Port 8080!");
 }
